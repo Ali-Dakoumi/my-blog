@@ -21,9 +21,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+  const baseUrl = "https://my-blog-gray-eta-88.vercel.app";
 
   return generateSEOMetadata(post, baseUrl);
 }
@@ -40,9 +38,7 @@ export default async function BlogPost({
     notFound();
   }
 
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+  const baseUrl = "https://my-blog-gray-eta-88.vercel.app";
 
   const currentUrl = `${baseUrl}/blog/${slug}`;
 

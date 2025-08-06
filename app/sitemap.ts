@@ -3,9 +3,7 @@ import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000"; // Replace with your actual domain
+  const baseUrl = "https://my-blog-gray-eta-88.vercel.app"; // Replace with your actual domain
 
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

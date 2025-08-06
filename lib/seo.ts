@@ -2,9 +2,7 @@ import type { BlogPost } from "./blog";
 
 export function generateSEOMetadata(
   post: BlogPost,
-  baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000"
+  baseUrl = "https://my-blog-gray-eta-88.vercel.app"
 ) {
   const ogImageUrl = `${baseUrl}/placeholder.jpg`;
 
@@ -55,9 +53,7 @@ export function generateSEOMetadata(
 
 export function generateStructuredData(
   post: BlogPost,
-  baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000"
+  baseUrl = "https://my-blog-gray-eta-88.vercel.app"
 ) {
   return {
     "@context": "https://schema.org",

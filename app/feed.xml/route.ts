@@ -2,9 +2,7 @@ import { getAllPosts } from "@/lib/blog";
 
 export async function GET() {
   const posts = getAllPosts();
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000"; // Replace with your actual domain
+  const baseUrl = "https://my-blog-gray-eta-88.vercel.app"; // Replace with your actual domain
 
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

@@ -22,9 +22,7 @@ import { getAllPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 
 // Get the base URL dynamically for Vercel deployments
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000"; // Fallback for local development
+const baseUrl = "https://my-blog-gray-eta-88.vercel.app"; // Fallback for local development
 
 export const metadata: Metadata = {
   title: "Ali Dakoumi - Code & Coffee",
