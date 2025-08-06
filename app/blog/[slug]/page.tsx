@@ -1,34 +1,50 @@
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { ArrowLeft, Calendar, User, Clock, Terminal } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { getPostBySlug, getAllSlugs } from "@/lib/blog"
-import { generateSEOMetadata, generateStructuredData } from "@/lib/seo"
-import { ClientShareButtons } from "@/components/client-share-buttons"
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, Calendar, User, Clock, Terminal } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+import { generateSEOMetadata, generateStructuredData } from "@/lib/seo";
+import { ClientShareButtons } from "@/components/client-share-buttons";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return {
       title: "Post Not Found | Ali Dakoumi",
       description: "The requested blog post could not be found.",
-    }
+    };
   }
 
-  return generateSEOMetadata(post, "https://your-actual-domain.com")
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+
+  return generateSEOMetadata(post, baseUrl);
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
-  const currentUrl = `https://your-actual-domain.com/blog/${slug}`
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+
+  const currentUrl = `${baseUrl}/blog/${slug}`;
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono">
@@ -63,7 +79,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
         {/* Article Header - Responsive */}
         <header className="mb-6 sm:mb-8 p-3 sm:p-4 border border-green-800 bg-gray-950 rounded">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl text-cyan-400 mb-4 break-words leading-tight">{post.title}</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl text-cyan-400 mb-4 break-words leading-tight">
+            {post.title}
+          </h1>
           <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-xs sm:text-sm text-green-600 mb-4">
             <div className="flex items-center gap-1 flex-shrink-0">
               <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -71,7 +89,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </div>
             <div className="flex items-center gap-1 flex-shrink-0">
               <User className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="truncate max-w-[120px] sm:max-w-none">{post.author}</span>
+              <span className="truncate max-w-[120px] sm:max-w-none">
+                {post.author}
+              </span>
             </div>
             <div className="flex items-center gap-1 flex-shrink-0">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -80,7 +100,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </div>
           <div className="flex flex-wrap gap-1 sm:gap-2">
             {post.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs border-green-800 text-green-400 flex-shrink-0">
+              <Badge
+                key={tag}
+                variant="outline"
+                className="text-xs border-green-800 text-green-400 flex-shrink-0"
+              >
                 #{tag}
               </Badge>
             ))}
@@ -97,31 +121,48 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
         {/* Social Sharing - Responsive */}
         <div className="mt-6 sm:mt-8">
-          <ClientShareButtons title={post.title} author={post.author} tags={post.tags} url={currentUrl} />
+          <ClientShareButtons
+            title={post.title}
+            author={post.author}
+            tags={post.tags}
+            url={currentUrl}
+          />
         </div>
 
         {/* Social Preview - Responsive */}
         <div className="mt-4 sm:mt-6 border border-green-800 bg-gray-950 p-3 sm:p-4 rounded">
           <div className="flex items-center gap-2 mb-3 text-cyan-400">
-            <span className="text-xs sm:text-sm font-semibold">{">"} social media preview</span>
+            <span className="text-xs sm:text-sm font-semibold">
+              {">"} social media preview
+            </span>
           </div>
 
           <div className="border border-green-700 rounded overflow-hidden">
             <img
-              src={`/api/og?title=${encodeURIComponent(post.title)}&author=${encodeURIComponent(post.author)}&date=${post.date}&tags=${post.tags.join(",")}`}
+              src={`/api/og?title=${encodeURIComponent(
+                post.title
+              )}&author=${encodeURIComponent(post.author)}&date=${
+                post.date
+              }&tags=${post.tags.join(",")}`}
               alt={`Social preview for ${post.title}`}
               className="w-full h-auto"
             />
             <div className="p-3 bg-gray-900">
-              <h3 className="text-green-400 font-semibold text-xs sm:text-sm mb-1 break-words">{post.title}</h3>
-              <p className="text-green-300 text-xs mb-2 break-words">{post.description}</p>
+              <h3 className="text-green-400 font-semibold text-xs sm:text-sm mb-1 break-words">
+                {post.title}
+              </h3>
+              <p className="text-green-300 text-xs mb-2 break-words">
+                {post.description}
+              </p>
               <p className="text-green-600 text-xs">alidakoumi.dev</p>
             </div>
           </div>
 
           <div className="mt-3 text-xs text-green-600 space-y-1">
             <div className="break-words">{">"} Image generated: 1200x630px</div>
-            <div className="text-cyan-400">Perfect for all social platforms</div>
+            <div className="text-cyan-400">
+              Perfect for all social platforms
+            </div>
           </div>
         </div>
 
@@ -130,7 +171,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="text-xs sm:text-sm text-green-600 space-y-2">
             <div>{">"} end of file</div>
             <div>
-              <Link href="/" className="text-cyan-400 hover:text-green-400 transition-colors break-words">
+              <Link
+                href="/"
+                className="text-cyan-400 hover:text-green-400 transition-colors break-words"
+              >
                 {"<"} return to blog index
               </Link>
             </div>
@@ -138,9 +182,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </div>
       </article>
     </div>
-  )
+  );
 }
 
 export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }))
+  return getAllSlugs().map((slug) => ({ slug }));
 }

@@ -1,7 +1,16 @@
-import type { BlogPost } from "./blog"
+import type { BlogPost } from "./blog";
 
-export function generateSEOMetadata(post: BlogPost, baseUrl = "https://your-actual-domain.com") {
-  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&author=${encodeURIComponent(post.author)}&date=${post.date}&tags=${post.tags.join(",")}`
+export function generateSEOMetadata(
+  post: BlogPost,
+  baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000"
+) {
+  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(
+    post.title
+  )}&author=${encodeURIComponent(post.author)}&date=${
+    post.date
+  }&tags=${post.tags.join(",")}`;
 
   return {
     title: `${post.title} | Ali Dakoumi`,
@@ -45,16 +54,25 @@ export function generateSEOMetadata(post: BlogPost, baseUrl = "https://your-actu
         "max-snippet": -1,
       },
     },
-  }
+  };
 }
 
-export function generateStructuredData(post: BlogPost, baseUrl = "https://your-actual-domain.com") {
+export function generateStructuredData(
+  post: BlogPost,
+  baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000"
+) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    image: `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&author=${encodeURIComponent(post.author)}&date=${post.date}&tags=${post.tags.join(",")}`,
+    image: `${baseUrl}/api/og?title=${encodeURIComponent(
+      post.title
+    )}&author=${encodeURIComponent(post.author)}&date=${
+      post.date
+    }&tags=${post.tags.join(",")}`,
     author: {
       "@type": "Person",
       name: post.author,
@@ -76,5 +94,5 @@ export function generateStructuredData(post: BlogPost, baseUrl = "https://your-a
     keywords: post.tags.join(", "),
     articleSection: "Technology",
     inLanguage: "en-US",
-  }
+  };
 }

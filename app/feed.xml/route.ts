@@ -1,8 +1,10 @@
-import { getAllPosts } from "@/lib/blog"
+import { getAllPosts } from "@/lib/blog";
 
 export async function GET() {
-  const posts = getAllPosts()
-  const baseUrl = "https://your-actual-domain.com" // Replace with your actual domain
+  const posts = getAllPosts();
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000"; // Replace with your actual domain
 
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -26,15 +28,15 @@ export async function GET() {
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <author>your-email@example.com (${post.author})</author>
       ${post.tags.map((tag) => `<category>${tag}</category>`).join("")}
-    </item>`,
+    </item>`
       )
       .join("")}
   </channel>
-</rss>`
+</rss>`;
 
   return new Response(rssXml, {
     headers: {
       "Content-Type": "application/xml",
     },
-  })
+  });
 }
