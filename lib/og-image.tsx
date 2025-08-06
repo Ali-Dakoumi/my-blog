@@ -45,7 +45,7 @@ export function generateOGImage({
         }}
       >
         <span style={{ color: "#06d6a0" }}>
-          {">"} cat /blog/posts/{title.toLowerCase().replace(/\s+/g, "-")}.md
+          ali@localhost:~$ cat /blog/posts/{title.toLowerCase().replace(/\s+/g, "-")}.md
         </span>
       </div>
 
@@ -125,7 +125,7 @@ export function generateOGImage({
           color: "#666666",
         }}
       >
-        GEEK BLOG
+        CODE & COFFEE
       </div>
     </div>,
     {

@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/blog"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts()
-  const baseUrl = "https://your-blog.com"
+  const baseUrl = "https://your-actual-domain.com" // Replace with your actual domain
 
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -23,7 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/debug`,
+      lastModified: new Date(), // Fixed the undeclared variable New to Date
+      changeFrequency: "monthly",
+      priority: 0.3,
     },
     ...postUrls,
   ]

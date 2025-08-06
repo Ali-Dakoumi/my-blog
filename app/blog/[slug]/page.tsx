@@ -12,12 +12,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!post) {
     return {
-      title: "Post Not Found | Geek Blog",
+      title: "Post Not Found | Ali Dakoumi",
       description: "The requested blog post could not be found.",
     }
   }
 
-  return generateSEOMetadata(post)
+  return generateSEOMetadata(post, "https://your-actual-domain.com")
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
@@ -28,7 +28,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
-  const currentUrl = `https://your-blog.com/blog/${slug}`
+  const currentUrl = `https://your-actual-domain.com/blog/${slug}`
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono">
@@ -45,7 +45,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="flex flex-wrap items-center gap-2 text-green-600 text-xs sm:text-sm">
             <Terminal className="w-4 h-4 flex-shrink-0" />
             <span className="break-all">
-              {">"} cat /blog/posts/{slug}.mdx
+              {">"} cat /blog/posts/{slug}.md
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <div className="p-3 bg-gray-900">
               <h3 className="text-green-400 font-semibold text-xs sm:text-sm mb-1 break-words">{post.title}</h3>
               <p className="text-green-300 text-xs mb-2 break-words">{post.description}</p>
-              <p className="text-green-600 text-xs">geekblog.dev</p>
+              <p className="text-green-600 text-xs">alidakoumi.dev</p>
             </div>
           </div>
 

@@ -1,27 +1,27 @@
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, User, Terminal, Code2, Cpu } from "lucide-react"
+import { Calendar, User, Terminal, Code2, Cpu, Coffee, Github, Linkedin, Mail } from "lucide-react"
 import { getAllPosts } from "@/lib/blog"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Geek Blog - Digital Sanctuary for Code Warriors",
+  title: "Ali Dakoumi - Code & Coffee",
   description:
-    "A terminal-themed blog for developers, hackers, and digital nomads. Dive deep into code, Linux, vim, programming philosophy, and the art of computing.",
-  keywords: "programming, linux, terminal, coding, geek, developer, blog, vim, emacs, open source",
-  authors: [{ name: "Geek Blog Team" }],
+    "Personal blog of Ali Dakoumi, a frontend developer sharing insights on modern web development, React, TypeScript, and the art of coding.",
+  keywords: "frontend developer, react, typescript, javascript, web development, Ali Dakoumi, tech blog, terminal",
+  authors: [{ name: "Ali Dakoumi" }],
   openGraph: {
-    title: "Geek Blog - Digital Sanctuary for Code Warriors",
-    description: "A terminal-themed blog for developers, hackers, and digital nomads.",
-    url: "https://your-blog.com",
-    siteName: "Geek Blog",
+    title: "Ali Dakoumi - Code & Coffee",
+    description: "Personal blog of a frontend developer sharing insights on modern web development.",
+    url: "https://your-actual-domain.com",
+    siteName: "Ali Dakoumi Blog",
     images: [
       {
-        url: "https://your-blog.com/api/og?title=Geek%20Blog&author=Code%20Warriors&date=2024&tags=coding,linux,terminal",
+        url: "https://your-actual-domain.com/api/og?title=Ali%20Dakoumi&author=Frontend%20Developer&date=2024&tags=react,typescript,frontend",
         width: 1200,
         height: 630,
-        alt: "Geek Blog - Digital Sanctuary for Code Warriors",
+        alt: "Ali Dakoumi - Code & Coffee",
       },
     ],
     locale: "en_US",
@@ -29,10 +29,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Geek Blog - Digital Sanctuary for Code Warriors",
-    description: "A terminal-themed blog for developers, hackers, and digital nomads.",
+    title: "Ali Dakoumi - Code & Coffee",
+    description: "Personal blog of a frontend developer sharing insights on modern web development.",
     images: [
-      "https://your-blog.com/api/og?title=Geek%20Blog&author=Code%20Warriors&date=2024&tags=coding,linux,terminal",
+      "https://your-actual-domain.com/api/og?title=Ali%20Dakoumi&author=Frontend%20Developer&date=2024&tags=react,typescript,frontend",
     ],
     creator: "@your_twitter_handle",
   },
@@ -54,27 +54,40 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono">
-      {/* ASCII Art Header - Responsive */}
+      {/* Terminal Header - No more big ASCII art */}
       <header className="border-b-2 border-green-400 p-3 sm:p-6">
         <div className="max-w-7xl mx-auto">
-          <pre className="text-green-400 text-[8px] xs:text-[10px] sm:text-xs md:text-sm mb-4 overflow-x-auto whitespace-pre">
-            {`
- ██████╗ ███████╗███████╗██╗  ██╗    ██████╗ ██╗      ██████╗  ██████╗ 
-██╔════╝ ██╔════╝██╔════╝██║ ██╔╝    ██╔══██╗██║     ██╔═══██╗██╔════╝ 
-██║  ███╗█████╗  █████╗  █████╔╝     ██████╔╝██║     ██║   ██║██║  ███╗
-██║   ██║██╔══╝  ██╔══╝  ██╔═██╗     ██╔══██╗██║     ██║   ██║██║   ██║
-╚██████╔╝███████╗███████╗██║  ██╗    ██████╔╝███████╗╚██████╔╝╚██████╔╝
- ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝ 
-`}
-          </pre>
-          <div className="flex flex-wrap items-center gap-2 text-cyan-400 text-sm sm:text-base">
-            <Terminal className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-            <span className="break-words">{">"} A digital sanctuary for code warriors and terminal dwellers</span>
+          {/* Simple terminal-style header */}
+          <div className="mb-4">
+            <div className="flex items-center gap-2 text-green-400 mb-2">
+              <Terminal className="w-5 h-5" />
+              <span className="text-lg font-bold">ali@localhost:~$</span>
+            </div>
+            <div className="text-cyan-400 text-2xl sm:text-3xl font-bold mb-2">./code-and-coffee.sh</div>
+            <div className="text-green-300 text-sm">
+              <span className="text-green-600">{">"}</span> Personal blog of Ali Dakoumi - Frontend Developer
+            </div>
+          </div>
+
+          {/* Terminal info bar */}
+          <div className="flex flex-wrap items-center gap-4 text-xs text-green-600 border border-green-800 bg-gray-950 p-2 rounded">
+            <div className="flex items-center gap-1">
+              <Coffee className="w-3 h-3" />
+              <span>status: caffeinated</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Code2 className="w-3 h-3" />
+              <span>mode: frontend_dev</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Cpu className="w-3 h-3" />
+              <span>uptime: coding since 2020</span>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Navigation - Responsive */}
+      {/* Navigation */}
       <nav className="border-b border-green-800 p-3 sm:p-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -92,15 +105,32 @@ export default function HomePage() {
                 {">"} archive
               </Link>
             </div>
-            <div className="flex items-center gap-2 text-xs text-green-600">
-              <Cpu className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-              <span className="whitespace-nowrap">uptime: 42 days</span>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/your-github"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 hover:text-cyan-400 transition-colors"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href="https://linkedin.com/in/your-linkedin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 hover:text-cyan-400 transition-colors"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a href="mailto:your-email@example.com" className="text-green-600 hover:text-cyan-400 transition-colors">
+                <Mail className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Main Content - Responsive */}
+      {/* Main Content */}
       <main className="max-w-7xl mx-auto p-3 sm:p-6">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-xl sm:text-2xl mb-2 text-cyan-400 break-words">{"$"} ls -la /blog/posts/</h1>
@@ -178,13 +208,13 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Terminal Footer - Responsive */}
+        {/* Terminal Footer */}
         <div className="mt-8 sm:mt-12 p-3 sm:p-4 border border-green-800 bg-gray-950 rounded">
           <div className="text-xs text-green-600 space-y-1">
-            <div className="break-words">{">"} cat /proc/meminfo | grep geek</div>
-            <div className="text-green-400">GeekMemTotal: ∞ kB</div>
-            <div className="text-green-400">GeekMemFree: 0 kB (always learning)</div>
-            <div className="text-cyan-400 break-words">{">"} echo "Happy coding, fellow geeks!" | cowsay</div>
+            <div className="break-words">{">"} cat /proc/meminfo | grep developer</div>
+            <div className="text-green-400">DeveloperMemTotal: ∞ kB</div>
+            <div className="text-green-400">CoffeeMemFree: 0 kB (always brewing)</div>
+            <div className="text-cyan-400 break-words">{">"} echo "Happy coding, fellow developers!" | cowsay</div>
           </div>
         </div>
       </main>

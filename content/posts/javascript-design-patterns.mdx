@@ -1,0 +1,296 @@
+---
+title: "🔁 Functional Programming Design Patterns in JavaScript (With Real Examples)"
+description: "JavaScript is a multi-paradigm language, meaning you can write object-oriented, procedural, or functional code. But with first-class functions, closures, and higher-order constructs, JavaScript is exceptionally suited for functional programming."
+date: "2025-08-07"
+author: "Ali Dakoumi"
+tags: ["javascript", "functional-programming", "patterns"]
+readTime: "5 min"
+---
+
+# 🔁 Functional Programming Design Patterns in JavaScript (With Real Examples)
+
+## 🧭 Introduction
+
+JavaScript is a multi-paradigm language, meaning you can write object-oriented, procedural, or functional code. But with first-class functions, closures, and higher-order constructs, JavaScript is exceptionally suited for functional programming.
+
+This article covers essential functional design patterns in JavaScript—patterns rooted in FP theory and proven in real-world codebases.
+
+## 📚 Key Functional Concepts
+
+Before diving into the patterns, it's essential to understand the core principles of functional programming:
+
+- ✅ **Pure Functions**: No side effects, same output for the same input
+- 🚫 **Immutability**: Data is never mutated; instead, new data is returned
+- 🔁 **Function Composition**: Combining smaller functions into larger ones
+- 🎭 **Higher-Order Functions**: Functions that take or return functions
+- 📦 **Closures**: Inner functions that remember the scope in which they were created
+
+## 🧠 1. Pure Function Pattern
+
+A function is pure if its output is determined only by its input values, without observable side effects.
+
+❌ **Impure:**
+
+\`\`\`javascript
+let count = 0;
+
+function increment() {
+count += 1; // Side effect: modifies outer variable
+return count;
+}
+\`\`\`
+
+✅ **Pure:**
+
+\`\`\`javascript
+function increment(value) {
+return value + 1;
+}
+\`\`\`
+
+Why it matters: Pure functions are easier to test, debug, and reason about.
+
+## 🔁 2. Function Composition Pattern
+
+Build complex functionality by chaining simple functions together.
+
+Example:
+
+\`\`\`javascript
+const toUpper = str => str.toUpperCase();
+const exclaim = str => str + '!';
+const repeat = str => str + str;
+
+const compose = (...fns) => input =>
+fns.reduceRight((acc, fn) => fn(acc), input);
+
+const screamTwice = compose(repeat, exclaim, toUpper);
+
+console.log(screamTwice("hello")); // HELLO!HELLO!
+\`\`\`
+
+This pattern is declarative and eliminates intermediate state.
+
+## 🔧 3. Higher-Order Function (HOF) Pattern
+
+A function that either takes one or more functions as arguments or returns a function.
+
+Example: Custom map function
+
+\`\`\`javascript
+function map(arr, transformFn) {
+const result = [];
+for (let el of arr) {
+result.push(transformFn(el));
+}
+return result;
+}
+
+const doubled = map([1, 2, 3], x => x \* 2); // [2, 4, 6]
+\`\`\`
+
+Used widely in:
+
+- React (e.g., `useEffect`, `useCallback`)
+- Array methods: `map`, `filter`, `reduce`
+- Express middlewares
+
+## 🧳 4. Currying Pattern
+
+Transforms a function with multiple arguments into a sequence of functions each taking a single argument.
+
+Without Currying:
+
+\`\`\`javascript
+function multiply(a, b) {
+return a \* b;
+}
+multiply(2, 3); // 6
+\`\`\`
+
+With Currying:
+
+\`\`\`javascript
+function curriedMultiply(a) {
+return function (b) {
+return a \* b;
+};
+}
+
+const double = curriedMultiply(2);
+console.log(double(5)); // 10
+\`\`\`
+
+Or using arrow functions:
+
+\`\`\`javascript
+const curriedMultiply = a => b => a \* b;
+\`\`\`
+
+Use Case: Useful for creating reusable, partially applied functions.
+
+## 🪢 5. Partial Application Pattern
+
+Fix a number of function arguments and return a new function with fewer arguments.
+
+Example:
+
+\`\`\`javascript
+function greet(greeting, name) {
+return `${greeting}, ${name}`;
+}
+
+function partial(fn, ...fixedArgs) {
+return function (...remainingArgs) {
+return fn(...fixedArgs, ...remainingArgs);
+};
+}
+
+const sayHello = partial(greet, "Hello");
+
+console.log(sayHello("Alice")); // Hello, Alice
+\`\`\`
+
+Common in middleware configuration, UI event handling, or currying variants.
+
+## 🧱 6. Immutability Pattern
+
+Never modify existing data—always return new versions.
+
+❌ **Mutation:**
+
+\`\`\`javascript
+const user = { name: "Alice", age: 25 };
+user.age = 26; // mutation
+\`\`\`
+
+✅ **Immutable:**
+
+\`\`\`javascript
+const updatedUser = { ...user, age: 26 };
+\`\`\`
+
+For arrays:
+
+\`\`\`javascript
+const numbers = [1, 2, 3];
+const newNumbers = [...numbers, 4]; // [1, 2, 3, 4]
+\`\`\`
+
+Libraries like Immer, Immutable.js, and Ramda help enforce immutability in large codebases.
+
+## 🔁 7. Recursion Pattern
+
+Replace loops with self-calling functions for iteration, often more functional.
+
+Example: Sum of array
+
+\`\`\`javascript
+function sum(arr) {
+if (arr.length === 0) return 0;
+return arr[0] + sum(arr.slice(1));
+}
+
+console.log(sum([1, 2, 3, 4])); // 10
+\`\`\`
+
+Used in algorithms (tree traversal, flattening nested structures).
+Tip: Use tail recursion or memoization for performance.
+
+## 📦 8. Lazy Evaluation Pattern
+
+Delay computation until the result is actually needed.
+
+Example using generators:
+
+\`\`\`javascript
+function\* infiniteNumbers() {
+let num = 0;
+while (true) {
+yield num++;
+}
+}
+
+const numbers = infiniteNumbers();
+console.log(numbers.next().value); // 0
+console.log(numbers.next().value); // 1
+\`\`\`
+
+This pattern saves memory and improves performance when working with large or infinite data sets.
+
+## ⚙️ 9. Declarative Pipeline (Monad-like Pattern)
+
+Chain operations in a declarative pipeline using `.map()`, `.filter()`, `.reduce()`.
+
+\`\`\`javascript
+const data = [1, 2, 3, 4, 5];
+
+const result = data
+.filter(n => n % 2 === 1)
+.map(n => n \* 2)
+.reduce((a, b) => a + b, 0);
+
+console.log(result); // 18
+\`\`\`
+
+This is essentially the Functor + Reducer monad pattern in action.
+
+## 🧩 10. Maybe Pattern (Safe Null Handling)
+
+Avoid null/undefined errors by wrapping values in a container.
+
+\`\`\`javascript
+const Maybe = value => ({
+map: fn => (value == null ? Maybe(null) : Maybe(fn(value))),
+getOrElse: fallback => (value == null ? fallback : value)
+});
+
+const result = Maybe("hello")
+.map(str => str.toUpperCase())
+.map(str => str + " world")
+.getOrElse("default");
+
+console.log(result); // HELLO world
+\`\`\`
+
+Similar to Optional in Java or Option in functional libraries like folktale or sanctuary.js.
+
+## 🧭 When to Use Functional Patterns in JavaScript
+
+| Situation                       | Recommended Pattern               |
+| :------------------------------ | :-------------------------------- |
+| Safe handling of null/undefined | Maybe pattern                     |
+| Processing data collections     | Declarative pipeline, composition |
+| Encapsulating side-effects      | Pure functions, closures          |
+| Creating reusable logic         | Currying, HOF                     |
+| Avoiding mutation               | Immutability pattern              |
+| Performance or infinite data    | Lazy evaluation, recursion        |
+
+## 🛠 Real-World Use Cases
+
+| Tool/Library           | Patterns Used                                        |
+| :--------------------- | :--------------------------------------------------- |
+| React                  | Pure functions, HOF (hooks), composition             |
+| Redux                  | Immutable state, pure reducers, functional pipelines |
+| Lodash / Ramda         | Currying, composition, immutability helpers          |
+| RxJS                   | Lazy evaluation, composition, functional streams     |
+| Next.js API Middleware | HOFs, partial application                            |
+
+## 🔚 Conclusion
+
+Functional programming design patterns are not just academic—they’re practical, elegant solutions to everyday problems in JavaScript. They lead to:
+
+- ✅ Safer, more predictable code
+- 📏 Easier testing and debugging
+- 🚀 Enhanced code reusability and modularity
+
+Start small: refactor functions to be pure, favor immutability, and use built-in HOFs like `map`, `reduce`, and `filter`. As your codebase grows, patterns like composition, currying, and Maybe will make your life easier.
+
+## 📚 Further Learning
+
+- Clean Code by Robert C. Martin
+- Professor Frisby’s Mostly Adequate Guide to Functional Programming
+- Ramda.js Docs
+- Sanctuary.js
+- Functional-Light JavaScript by Kyle Simpson
+  \`\`\`

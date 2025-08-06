@@ -9,10 +9,10 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Geek Blog - Digital Sanctuary for Code Warriors",
+  title: "Ali Dakoumi - Code & Coffee",
   description:
-    "A terminal-themed blog for developers, hackers, and digital nomads. Dive deep into code, Linux, and the art of computing.",
-  keywords: ["programming", "linux", "terminal", "coding", "geek", "developer", "blog"],
+    "Personal blog of Ali Dakoumi, a frontend developer sharing insights on modern web development, React, TypeScript, and the art of coding.",
+  keywords: ["frontend", "developer", "react", "typescript", "javascript", "web development", "Ali Dakoumi"],
     generator: 'v0.dev'
 }
 

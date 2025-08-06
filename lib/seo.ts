@@ -1,10 +1,10 @@
 import type { BlogPost } from "./blog"
 
-export function generateSEOMetadata(post: BlogPost, baseUrl = "https://your-blog.com") {
+export function generateSEOMetadata(post: BlogPost, baseUrl = "https://your-actual-domain.com") {
   const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(post.title)}&author=${encodeURIComponent(post.author)}&date=${post.date}&tags=${post.tags.join(",")}`
 
   return {
-    title: `${post.title} | Geek Blog`,
+    title: `${post.title} | Ali Dakoumi`,
     description: post.description,
     keywords: post.tags.join(", "),
     authors: [{ name: post.author }],
@@ -12,7 +12,7 @@ export function generateSEOMetadata(post: BlogPost, baseUrl = "https://your-blog
       title: post.title,
       description: post.description,
       url: `${baseUrl}/blog/${post.slug}`,
-      siteName: "Geek Blog",
+      siteName: "Ali Dakoumi - Code & Coffee",
       images: [
         {
           url: ogImageUrl,
@@ -48,7 +48,7 @@ export function generateSEOMetadata(post: BlogPost, baseUrl = "https://your-blog
   }
 }
 
-export function generateStructuredData(post: BlogPost, baseUrl = "https://your-blog.com") {
+export function generateStructuredData(post: BlogPost, baseUrl = "https://your-actual-domain.com") {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -61,7 +61,7 @@ export function generateStructuredData(post: BlogPost, baseUrl = "https://your-b
     },
     publisher: {
       "@type": "Organization",
-      name: "Geek Blog",
+      name: "Ali Dakoumi - Code & Coffee",
       logo: {
         "@type": "ImageObject",
         url: `${baseUrl}/logo.png`,
