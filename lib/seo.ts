@@ -6,11 +6,7 @@ export function generateSEOMetadata(
     ? `https://${process.env.VERCEL_URL}`
     : "http://localhost:3000"
 ) {
-  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(
-    post.title
-  )}&author=${encodeURIComponent(post.author)}&date=${
-    post.date
-  }&tags=${post.tags.join(",")}`;
+  const ogImageUrl = `${baseUrl}/placeholder.jpg`;
 
   return {
     title: `${post.title} | Ali Dakoumi`,
